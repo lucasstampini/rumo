@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Carro">
+  <rect width="800" height="500" fill="#e3f4ea"/>
+  <circle cx="640" cy="110" r="150" fill="#d3ecdd"/>
+  <g transform="translate(90 95) scale(3.1)"><ellipse cx="100" cy="74" rx="90" ry="5" fill="rgba(16,35,26,.12)"/>
+  <path d="M10 60 Q7 45 22 41 L50 37 Q70 18 97 16 L128 16 Q150 17 164 35 L184 41 Q195 45 192 60 Z" fill="#1f3a8a" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>
+  <path d="M62 37 Q77 23 96 21 L110 21 L110 37 Z M116 21 L128 21 Q144 22 155 37 L116 37 Z" fill="#cfe3ee"/>
+  <rect x="88" y="44" width="10" height="3" rx="1.5" fill="rgba(0,0,0,.25)"/>
+  <rect x="180" y="45" width="10" height="5" rx="2" fill="#f7d36b"/>
+  <circle cx="52" cy="60" r="13" fill="#1d2722"/><circle cx="52" cy="60" r="6" fill="#a9b4ae"/>
+  <circle cx="152" cy="60" r="13" fill="#1d2722"/><circle cx="152" cy="60" r="6" fill="#a9b4ae"/></g>
+</svg>
