@@ -34,3 +34,28 @@ export async function getCarCalendar(supabase: Db, carId: string) {
     busyRanges: busy.data ?? [],
   };
 }
+
+type AngleUrls = Partial<Record<"front" | "back" | "left" | "right", string>>;
+
+/** Fotos de vistoria de uma reserva, com URLs assinadas (o bucket `inspections` é privado). */
+export async function getInspectionPhotos(
+  supabase: Db,
+  bookingId: string,
+): Promise<{ pickup: AngleUrls; return: AngleUrls }> {
+  const out = { pickup: {} as AngleUrls, return: {} as AngleUrls };
+  const { data: rows } = await supabase
+    .from("inspection_photos")
+    .select("kind, angle, url")
+    .eq("booking_id", bookingId);
+  if (!rows?.length) return out;
+
+  const { data: signed } = await supabase.storage.from("inspections").createSignedUrls(
+    rows.map((r) => r.url),
+    60 * 60,
+  );
+  rows.forEach((row, i) => {
+    const url = signed?.[i]?.signedUrl;
+    if (url) out[row.kind][row.angle as keyof AngleUrls] = url;
+  });
+  return out;
+}

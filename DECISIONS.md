@@ -47,3 +47,12 @@ Decisões tomadas durante a construção que a `SPEC.md` não cobre (ou onde foi
 28. **Cartão de crédito** é só uma variação visual do pagamento simulado ("Cartão de teste •••• 4242"); não coleta dados de cartão.
 29. **O QR do Pix é propositalmente inválido** (chave e CRC falsos), para ninguém pagar de verdade por engano.
 30. **Limite de 5 MB vale para o arquivo já comprimido** (o que de fato sobe). Fotos de celular costumam passar de 5 MB antes da compressão para ~1600px.
+
+## Lado do dono (Fase 5)
+
+31. **Quem tem mais de um carro** (ex.: Ana) escolhe o carro por chips no topo do "Ganhar" (`/earn?car=<id>`); o painel sempre mostra um carro por vez.
+32. **Bloqueio de dias específicos** (tabela `car_blocked_dates`) entrou no painel de disponibilidade como uma faixa de 14 dias, além dos dias da semana.
+33. **Custos e diária são digitados em reais inteiros** no formulário e gravados em centavos.
+34. **Fotos do carro sobem na hora em que são escolhidas** (bucket público `car-photos`, pasta do usuário); o anúncio só grava as URLs ao publicar. Fotos órfãs de um formulário abandonado ficam no bucket (sem limpeza no MVP).
+35. **O ponto de retirada precisa cair dentro do círculo da bolha**; validado no formulário e de novo na Server Action.
+36. **O dono lê o `pickup_code` pelo banco (RLS por linha), mas a tela dele não mostra**: ele precisa digitar o código que o locatário apresenta. Esconder a coluna de verdade exigiria outra tabela; fica fora do MVP.
