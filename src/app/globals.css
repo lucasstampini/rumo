@@ -137,7 +137,7 @@ button:disabled {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: var(--color-green);
+    background: var(--color-green-d);
     color: #fff;
     font-weight: 700;
     font-size: 16px;
@@ -149,7 +149,7 @@ button:disabled {
       transform 0.1s;
   }
   .cta:hover {
-    background: var(--color-green-d);
+    background: #0a5c34;
   }
   .cta:active {
     transform: scale(0.98);

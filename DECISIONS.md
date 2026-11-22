@@ -64,3 +64,9 @@ Decisões tomadas durante a construção que a `SPEC.md` não cobre (ou onde foi
 39. **Telas que esperam a outra pessoa se atualizam sozinhas a cada 6 s** (`AutoRefresh`), já que chat/realtime/push estão fora do MVP.
 40. **Fotos de vistoria** ficam no bucket privado `inspections/<id da reserva>/<retirada|devolução>-<ângulo>.jpg`; a coluna `url` guarda o caminho e as telas usam URLs assinadas de 1 hora. Só o locatário envia; os dois veem.
 41. **Aluguéis do dono** (pedidos, em andamento, histórico) ficam dentro do "Ganhar", por carro, e não na aba "Aluguéis" (que é a do locatário, como no protótipo).
+
+## Polimento e testes (Fase 7)
+
+42. **Botões principais usam o verde escuro (`green-d #0d7442`)** em vez do `green #159a58` do protótipo: texto branco sobre `#159a58` dá contraste ~3,6:1 e não passa no mínimo de 4,5:1. O verde claro continua em ícones, bordas, gráfico e barra de progresso.
+43. **O e2e inclui a conferência do código pela dona** entre a vistoria e o início (a lista da Fase 7 pula esse passo, mas o ciclo da seção 6 exige). Antes de rodar, ele apaga reservas em aberto do Kwid com a service role, para ser repetível.
+44. **Estados de lista:** carregando = `loading.tsx` com skeleton; erro = `error.tsx` com "Tentar de novo"; vazio = texto + ação em cada lista.
