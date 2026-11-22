@@ -15,3 +15,17 @@ Decisões tomadas durante a construção que a `SPEC.md` não cobre (ou onde foi
 5. **Next.js 15** fixado via `create-next-app@15` (a spec pede 15; o `@latest` já instalaria outra major).
 6. **`<img>` em vez de `next/image`.** As imagens são SVGs locais ou arquivos do Supabase Storage; evita configurar `remotePatterns` por ambiente. Regra do ESLint desligada.
 7. **Link do vídeo demo** na landing aponta para o GitHub Pages do protótipo (`/rumo/demo.html`), em vez de duplicar 9 MB de vídeo neste repositório.
+
+## Banco e seed (Fase 1)
+
+8. **Coluna extra `bookings.pickup_confirmed_at`.** A spec diz que o aluguel fica ativo quando "dono confirma código + locatário envia 4 fotos", mas o schema não tem onde guardar a confirmação do dono. Esta coluna guarda o momento em que o dono digitou o código certo.
+9. **Travas no banco, não só nas Server Actions.** Triggers em `bookings` recalculam preço/taxas no insert e só deixam passar as transições de status previstas, feitas pela pessoa certa (dono ou locatário). Assim ninguém burla preço ou pula etapa chamando a API do Supabase direto. As Server Actions continuam validando antes, para dar mensagens amigáveis.
+10. **Perfis: colunas privadas.** Outros usuários só leem `full_name`, `avatar_url`, `verified` (grant por coluna). Telefone e CNH do próprio usuário vêm pela função `get_my_profile()`. `verified` não é editável pelo usuário: um trigger marca `true` quando a CNH é enviada.
+11. **Datas ocupadas sem expor reservas alheias:** função `car_busy_ranges(car)` (security definer) devolve só os períodos.
+12. **Expiração de 24h** do pedido sem resposta: função `expire_stale_requests()` chamada pelo servidor ao carregar as telas de aluguéis/ganhos (não há cron no MVP).
+13. **O locatário também pode cancelar um pedido ainda `requested`** (a spec só desenha `accepted → cancelled`); seria estranho não poder desistir antes da resposta do dono.
+14. **Contas do seed: 8, não 7.** A seção 9 lista lucas, ana, bia e "mais 5 donos fictícios" (= 8); a Fase 1 fala em 7. Vale a lista da seção 9. Ana é dona do Kwid e do Mobi; os outros 5 carros do protótipo ficam com os 5 donos fictícios.
+15. **Bolha Butantã criada na migration** com id fixo, para que um cadastro novo já tenha bolha mesmo sem seed. O seed faz upsert da mesma linha.
+16. **Views `car_ratings` e `profile_ratings`** são agregados; rodam com privilégio do dono da view para contar aluguéis que o usuário não pode ler linha a linha.
+17. **Rodar o seed de novo reinicia a demo:** o pedido pendente da Bia no Argo volta para `requested` (com `requested_at` = agora, senão expiraria em 24h). Rode `npm.cmd run seed` antes de apresentar.
+18. **Fotos dos carros do seed** são SVGs gerados do desenho do protótipo (`scripts/gen-car-svgs.mjs` → `public/cars/`), sem hotlink.
