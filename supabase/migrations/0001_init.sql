@@ -369,6 +369,22 @@ select
 from reviews
 group by target_id;
 
+-- Avaliações que os locatários deixaram em cada carro (sem expor a reserva).
+create view car_reviews as
+select
+  r.id,
+  b.car_id,
+  r.rating,
+  r.comment,
+  r.created_at,
+  p.full_name as author_name,
+  p.avatar_url as author_avatar_url
+from reviews r
+join bookings b on b.id = r.booking_id
+join cars c on c.id = b.car_id
+join profiles p on p.id = r.author_id
+where r.target_id = c.owner_id;
+
 -- ───────────────────────── RLS ─────────────────────────
 
 alter table bubbles enable row level security;
@@ -381,7 +397,7 @@ alter table inspection_photos enable row level security;
 alter table reviews enable row level security;
 
 revoke all on bubbles, profiles, cars, car_photos, car_blocked_dates, bookings, inspection_photos, reviews,
-  car_ratings, profile_ratings from anon, authenticated;
+  car_ratings, profile_ratings, car_reviews from anon, authenticated;
 
 -- bubbles
 grant select on bubbles to authenticated;
@@ -452,7 +468,7 @@ create policy reviews_insert on reviews for insert to authenticated with check (
 );
 
 -- views (agregados públicos para usuários logados)
-grant select on car_ratings, profile_ratings to authenticated;
+grant select on car_ratings, profile_ratings, car_reviews to authenticated;
 
 -- funções
 revoke execute on function
@@ -467,7 +483,7 @@ to authenticated, service_role;
 -- service role (seed e scripts) enxerga tudo
 grant all on bubbles, profiles, cars, car_photos, car_blocked_dates, bookings, inspection_photos, reviews
   to service_role;
-grant select on car_ratings, profile_ratings to service_role;
+grant select on car_ratings, profile_ratings, car_reviews to service_role;
 
 -- ───────────────────────── Storage ─────────────────────────
 

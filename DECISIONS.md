@@ -29,3 +29,12 @@ Decisões tomadas durante a construção que a `SPEC.md` não cobre (ou onde foi
 16. **Views `car_ratings` e `profile_ratings`** são agregados; rodam com privilégio do dono da view para contar aluguéis que o usuário não pode ler linha a linha.
 17. **Rodar o seed de novo reinicia a demo:** o pedido pendente da Bia no Argo volta para `requested` (com `requested_at` = agora, senão expiraria em 24h). Rode `npm.cmd run seed` antes de apresentar.
 18. **Fotos dos carros do seed** são SVGs gerados do desenho do protótipo (`scripts/gen-car-svgs.mjs` → `public/cars/`), sem hotlink.
+
+## Explorar e detalhe (Fase 3)
+
+19. **Posição do usuário fora da bolha = centro da bolha.** A spec manda usar o centro só quando a geolocalização é negada; mas quem abre a demo de outro bairro veria "140 min a pé" em tudo. Se o GPS cair fora do círculo, usamos o centro também.
+20. **Explorar lista todo carro anunciado dentro do círculo**, sem filtrar por "disponível hoje" (a tela não tem seletor de data). A regra de disponibilidade por dia da semana/bloqueio é aplicada no calendário da reserva e de novo no servidor e no banco.
+21. **Filtro de preço** como dois chips ("Até R$ 100", "Até R$ 150") ao lado das categorias, em vez de um slider.
+22. **Combustível "Flex" e ar-condicionado "Sim" são fixos** no detalhe: o schema da spec não tem essas colunas e o protótipo mostra esses valores para todos os carros.
+23. **View `car_reviews`** entrega as avaliações de um carro com o nome de quem avaliou, sem dar acesso às reservas de terceiros.
+24. **Atribuição do OpenStreetMap** aparece como um selo acima dos cards (o controle padrão do Leaflet ficaria escondido atrás deles).

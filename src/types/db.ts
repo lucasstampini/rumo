@@ -218,6 +218,26 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"car_reviews": {
+                  Row: {
+                    "author_avatar_url": string | null,"author_name": string,"car_id": string,"comment": string | null,"created_at": string,"id": string,"rating": number
+                  }
+                  ComputedFields: never
+                  Relationships: [
+                    {
+      foreignKeyName: "bookings_car_id_fkey"
+      columns: ["car_id"]
+isOneToOne: false
+      referencedRelation: "car_ratings"
+      referencedColumns: ["car_id"]
+    },{
+      foreignKeyName: "bookings_car_id_fkey"
+      columns: ["car_id"]
+isOneToOne: false
+      referencedRelation: "cars"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"profile_ratings": {
                   Row: {
                     "avg_rating": number | null,"profile_id": string,"review_count": number | null
