@@ -38,3 +38,12 @@ Decisões tomadas durante a construção que a `SPEC.md` não cobre (ou onde foi
 22. **Combustível "Flex" e ar-condicionado "Sim" são fixos** no detalhe: o schema da spec não tem essas colunas e o protótipo mostra esses valores para todos os carros.
 23. **View `car_reviews`** entrega as avaliações de um carro com o nome de quem avaliou, sem dar acesso às reservas de terceiros.
 24. **Atribuição do OpenStreetMap** aparece como um selo acima dos cards (o controle padrão do Leaflet ficaria escondido atrás deles).
+
+## Reserva e Pix simulado (Fase 4)
+
+25. **Rota do pagamento antes de a reserva existir: `/bookings/new/pay?car=…&start=…&end=…`.** A spec pede `/bookings/[id]/pay` e também diz que "Simular pagamento" é o que *cria* a reserva paga (o schema não tem estado "aguardando pagamento"). Então `[id]` vale `new` enquanto se paga, com o rascunho na query string, e depois do pagamento a mesma rota com o id real mostra a tela de sucesso.
+26. **Tela de sucesso diz "Pagamento confirmado!"**, e não "Reserva confirmada!" como no protótipo: no MVP o dono ainda precisa aceitar, e o código de retirada só existe depois disso.
+27. **Conflito de datas é checado três vezes:** no calendário (dias ocupados desabilitados), no servidor antes de ir ao pagamento e ao pagar (mensagem amigável), e no banco (exclusion constraint, erro `23P01` traduzido).
+28. **Cartão de crédito** é só uma variação visual do pagamento simulado ("Cartão de teste •••• 4242"); não coleta dados de cartão.
+29. **O QR do Pix é propositalmente inválido** (chave e CRC falsos), para ninguém pagar de verdade por engano.
+30. **Limite de 5 MB vale para o arquivo já comprimido** (o que de fato sobe). Fotos de celular costumam passar de 5 MB antes da compressão para ~1600px.
