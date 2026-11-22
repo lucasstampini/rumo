@@ -70,3 +70,8 @@ Decisões tomadas durante a construção que a `SPEC.md` não cobre (ou onde foi
 42. **Botões principais usam o verde escuro (`green-d #0d7442`)** em vez do `green #159a58` do protótipo: texto branco sobre `#159a58` dá contraste ~3,6:1 e não passa no mínimo de 4,5:1. O verde claro continua em ícones, bordas, gráfico e barra de progresso.
 43. **O e2e inclui a conferência do código pela dona** entre a vistoria e o início (a lista da Fase 7 pula esse passo, mas o ciclo da seção 6 exige). Antes de rodar, ele apaga reservas em aberto do Kwid com a service role, para ser repetível.
 44. **Estados de lista:** carregando = `loading.tsx` com skeleton; erro = `error.tsx` com "Tentar de novo"; vazio = texto + ação em cada lista.
+
+## Deploy (Fase 8)
+
+45. **Sem URL pública nesta entrega.** O "Pronto quando" da Fase 8 (URL abre no celular) depende dos passos 14.1 e 14.4, que são seus: criar o projeto no Supabase e a conta/import na Vercel. O token da Vercel CLI desta máquina está expirado e não havia projeto Supabase na nuvem. O que foi validado no lugar: `next build` + `next start` (build de produção) com o e2e completo passando contra ele, usando o Supabase local. O README tem os 6 passos para publicar; nenhum exige mudar código.
+46. **Banco entregue limpo:** depois dos testes, `db reset` + seed. Não há reservas nem contas de teste além das 8 do seed.
