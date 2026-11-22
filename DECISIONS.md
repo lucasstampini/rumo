@@ -56,3 +56,11 @@ Decisões tomadas durante a construção que a `SPEC.md` não cobre (ou onde foi
 34. **Fotos do carro sobem na hora em que são escolhidas** (bucket público `car-photos`, pasta do usuário); o anúncio só grava as URLs ao publicar. Fotos órfãs de um formulário abandonado ficam no bucket (sem limpeza no MVP).
 35. **O ponto de retirada precisa cair dentro do círculo da bolha**; validado no formulário e de novo na Server Action.
 36. **O dono lê o `pickup_code` pelo banco (RLS por linha), mas a tela dele não mostra**: ele precisa digitar o código que o locatário apresenta. Esconder a coluna de verdade exigiria outra tabela; fica fora do MVP.
+
+## Retirada, devolução e avaliações (Fase 6)
+
+37. **Ordem da retirada:** o locatário mostra o código → o dono digita e confirma → o locatário envia as 4 fotos → o locatário toca "Iniciar aluguel". O botão só habilita com as duas condições (código conferido + 4 fotos); a ordem entre elas é livre.
+38. **Devolução:** quando as 4 fotos de devolução existem, o botão "Confirmar devolução" aparece para o dono. Não há um status intermediário "devolução pedida" (o schema não tem); o estado é derivado das fotos.
+39. **Telas que esperam a outra pessoa se atualizam sozinhas a cada 6 s** (`AutoRefresh`), já que chat/realtime/push estão fora do MVP.
+40. **Fotos de vistoria** ficam no bucket privado `inspections/<id da reserva>/<retirada|devolução>-<ângulo>.jpg`; a coluna `url` guarda o caminho e as telas usam URLs assinadas de 1 hora. Só o locatário envia; os dois veem.
+41. **Aluguéis do dono** (pedidos, em andamento, histórico) ficam dentro do "Ganhar", por carro, e não na aba "Aluguéis" (que é a do locatário, como no protótipo).

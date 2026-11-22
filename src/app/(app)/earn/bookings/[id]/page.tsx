@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CircleCheck, ShieldCheck, Star } from "lucide-react";
+import { AutoRefresh } from "@/components/AutoRefresh";
 import { ActionButton } from "@/components/booking/ActionButton";
 import { InspectionGallery } from "@/components/booking/Inspection";
 import { PickupCodeForm } from "@/components/booking/PickupCodeForm";
@@ -48,6 +49,7 @@ export default async function OwnerBookingPage({ params }: { params: Promise<{ i
 
   return (
     <>
+      {(b.status === "accepted" || b.status === "active") && <AutoRefresh />}
       <PageHeader title="Reserva" backHref={`/earn?car=${b.car.id}`} />
       <main className="page !pt-4">
         <section className="panel">
